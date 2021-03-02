@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Companies</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/modalStyle.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body class="container">
+
+    <%- include('partials/header') %>
+
+        <div class="cards row">
+            <% for ( let i = (page - 1) * 6; i < page * 6 && i < companies.length; i++ ) { %>
+                <div class="card col-12 col-md-6 col-lg-4 mt-5">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= companies[i].name %>
+                        </h5>
+                        <p class="card-text">registration number :
+                            <%= companies[i].registration_number %>
+                        </p>
+                        <a class="btn btn-primary" companyId="<%= companies[i]._id %>">company profile</a>
+                    </div>
+                </div>
+                <% } %>
+        </div>
+
+        <nav aria-label="Page navigation example" id="pagInation">
+            <ul class="pagination mt-5">
+                <% if (page != 1) { %>
+                    <li class="page-item" id="pre">
+                        <a class="page-link" href="page<%= page - 1 %>" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span></a>
+                    </li>
+                    <% } %>
+                        <% for ( let index = 0; index < companies.length / 6; index++) { %>
+                            <% if (page == index + 1) { %>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="page<%= index + 1 %>">
+                                        <%= index + 1 %>
+                                    </a>
+                                </li>
+                                <% } else {%>
+                                    <li class="page-item">
+                                        <a class="page-link" href="page<%= index + 1 %>">
+                                            <%= index + 1 %>
+                                        </a>
+                                    </li>
+                                    <% } %>
+                                        <% } %>
+                                            <% if (page != Math.ceil(companies.length / 6)) { %>
+                                                <li class="page-item" id="next">
+                                                    <a class="page-link" href="page<%= page + 1 %>" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+                                                <% } %>
+            </ul>
+        </nav>
+
+        <button id="addBtn">+</button>
+
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Read</h2>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="/javascripts/company.js"></script>
+</body>
+
+</html>
