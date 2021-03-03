@@ -18,6 +18,7 @@ router.get('/:id', (req, res) => {
 
 router.put('/', (req, res) => {
     const newEmployee = new Employee(req.body);
+    // newEmployee.calculateAge();
     newEmployee.save((err, employee) => {
         if (err) return res.status(500).json({ msg: "Server Error :)", err: err.message });
         res.json(employee);
@@ -25,14 +26,7 @@ router.put('/', (req, res) => {
 });
 
 router.post('/:id', (req, res) => {
-    Employee.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, employee) => {
-        if (err) return res.status(500).json({ msg: "Server Error :)", err: err.message });
-        res.json(employee);
-    })
-});
-
-router.post('/', (req, res) => {
-    Employee.updateMany(req.body.find, req.body.update, { new: true }, (err, employee) => {
+    Employee.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, runValidators: true, useFindAndModify: false }, (err, employee) => {
         if (err) return res.status(500).json({ msg: "Server Error :)", err: err.message });
         res.json(employee);
     })

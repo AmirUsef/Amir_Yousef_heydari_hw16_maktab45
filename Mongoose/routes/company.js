@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Company = require('../models/company');
+const Company = require('../models/Company');
 
 
 router.get('/page:pageNum', (req, res) => {
@@ -35,14 +35,7 @@ router.put('/', (req, res) => {
 });
 
 router.post('/:id', (req, res) => {
-    Company.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, runValidators: true }, (err, company) => {
-        if (err) return res.status(500).json({ msg: "Server Error :)", err: err.message });
-        res.json(company);
-    })
-});
-
-router.post('/', (req, res) => {
-    Company.updateMany(req.body.find, req.body.update, { new: true }, (err, company) => {
+    Company.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, runValidators: true, useFindAndModify: false }, (err, company) => {
         if (err) return res.status(500).json({ msg: "Server Error :)", err: err.message });
         res.json(company);
     })

@@ -7,7 +7,8 @@ const CompanySchema = new Schema({
         required: true,
         trim: true,
         minlength: 2,
-        maxlength: 30
+        maxlength: 30,
+        set: v => v.toLowerCase()
     },
     registration_number: {
         type: String,
@@ -15,10 +16,12 @@ const CompanySchema = new Schema({
         unique: true
     },
     state: {
-        type: String
+        type: String,
+        set: v => v.toLowerCase()
     },
     city: {
-        type: String
+        type: String,
+        set: v => v.toLowerCase()
     },
     phone_number: {
         type: String
